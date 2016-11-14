@@ -1,0 +1,205 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>竖形菜单</title>
+<style type="text/css">
+<!--
+body {
+font-family: arial, 宋体, serif;
+font-size:12px;
+}
+*{margin:0px; padding:0px;}
+#nav {
+width:185px;
+line-height: 24px; 
+list-style-type: none;
+text-align:left;
+/*定义整个ul菜单的行高和背景色*/
+}
+/*==================一级目录===================*/
+#nav a {
+width: 185px; 
+display: block;
+padding-left:20px;
+/*Width(一定要)，否则下面的Li会变形*/
+}
+#nav li {
+border-bottom:#FFF 1px solid; /*下面的一条白边*/
+float:left;
+background-color: white;
+color:#DD1336;
+font-weight:bold;
+background: url(../images/dot_o.gif) no-repeat 8px 8px;
+}
+#nav li a:hover{
+background:#F85B78; /*一级目录onMouseOver显示的背景色*/
+}
+#nav a:link {
+color:#DD1336; text-decoration:none;
+}
+#nav a:visited {
+color:#DD1336;text-decoration:none;
+}
+#nav a:hover {
+color:#FFF;text-decoration:none;font-weight:bold;
+}
+/*==================二级目录===================*/
+#nav li ul {
+list-style:none;
+text-align:left;
+}
+#nav li ul li{
+background: #F5F5F5; /*二级目录的背景色*/
+font-weight:normal;
+}
+#nav li ul a{
+padding-left:20px;
+width:185px;
+/* padding-left二级目录中文字向右移动，但Width必须重新设置=(总宽度-padding-left)*/
+}
+/*下面是二级目录的链接样式*/
+#nav li ul a:link {
+color:#666; text-decoration:none;
+}
+#nav li ul a:visited {
+color:#666;text-decoration:none;
+}
+#nav li ul a:hover {
+color:#F3F3F3;
+text-decoration:none;
+font-weight:normal;
+background:#FFAA1C;
+/* 二级onmouseover的字体颜色、背景色*/
+}
+/*==============================*/
+#nav li:hover ul {
+left: auto;
+}
+#nav li.sfhover ul {
+left: auto;
+}
+#content {
+clear: left; 
+}
+#nav ul.collapsed {
+display: none;
+}
+#PARENT{
+width:185px;border:1px red  solid; float:left; margin-top:10px;
+}
+#PARENT1{
+ border:1px red  solid;  float:left;height:800px;width:1100px;
+}
+span{display:none;}
+-->
+</style>
+</head>
+<body onload=init();>
+<script> 
+alert("默认的是360安全浏览器，其他浏览器可能有看不到的现象，（**********显示区在树形菜单右侧**********）");</script>
+   <div   id="PARENT1"  width="800">
+		<fieldset class="fieldset">
+				<legend>效果显示</legend>
+				<table cellpadding="0" cellspacing="3" border="0" width="100%">
+			 
+			 
+				<tr>
+					<td>
+						<div class="page" id="divshow" style="border:thin inset; padding:6px; height:700px; overflow:auto">
+
+				 <iframe  id= "iframe"src="新建文件夹\显示.html"width="100%"></iframe>
+ 							<!-- regular forum rules -->
+                <iframe  id= "ifr34ame"src="新建文件夹\显示1.html"width="100%"></iframe>
+				   <iframe  id= "iframe34"src="新建文件夹\显示1 - 副本.html"width="100%"></iframe>
+						</div>
+						<div><label for="cb_rules_agree"><input type="checkbox" name="agree" id="cb_rules_agree" value="1" /><strong> <font color="red"> </font> </strong></label></div>
+					</td>
+				</tr>
+				</table>
+				 
+			</fieldset>
+		
+		
+		
+		</div>
+    <script type=text/javascript><!--
+var LastLeftID = "";
+function menuFix() {
+var obj = document.getElementById("nav").getElementsByTagName("li");
+for (var i=0; i<obj.length; i++) {
+   obj[i].onmouseover=function() {
+
+    this.className+=(this.className.length>0? " ": "") + "sfhover";
+   }
+   obj[i].onMouseDown=function() {
+    this.className+=(this.className.length>0? " ": "") + "sfhover";
+   }
+   obj[i].onMouseUp=function() {
+    this.className+=(this.className.length>0? " ": "") + "sfhover";
+   }
+   obj[i].onmouseout=function() {
+    this.className=this.className.replace(new RegExp("( ?|^)sfhover\\b"), "");
+   }
+}
+}
+
+ function DoMenu(emid)
+{
+var obj = document.getElementById(emid);
+obj.className = (obj.className.toLowerCase() == "expanded"?"collapsed":"expanded");
+if((LastLeftID!="")&&(emid!=LastLeftID)) //关闭上一个Menu
+{
+   document.getElementById(LastLeftID).className = "collapsed";
+}
+LastLeftID = emid;
+}
+function GetMenuID()
+{
+var MenuID="";
+var _paramStr = new String(window.location.href);
+var _sharpPos = _paramStr.indexOf("#");
+if (_sharpPos >= 0 && _sharpPos < _paramStr.length - 1)
+{
+   _paramStr = _paramStr.substring(_sharpPos + 1, _paramStr.length);
+}
+else
+{
+   _paramStr = "";
+}
+if (_paramStr.length > 0)
+{
+   var _paramArr = _paramStr.split("&");
+   if (_paramArr.length>0)
+   {
+    var _paramKeyVal = _paramArr[0].split("=");
+    if (_paramKeyVal.length>0)
+    {
+     MenuID = _paramKeyVal[1];
+    }
+   }
+   /*
+   if (_paramArr.length>0)
+   {
+    var _arr = new Array(_paramArr.length);
+   }
+   //取所有#后面的，菜单只需用到Menu
+   //for (var i = 0; i < _paramArr.length; i++)
+   {
+    var _paramKeyVal = _paramArr[i].split('=');
+  
+    if (_paramKeyVal.length>0)
+    {
+     _arr[_paramKeyVal[0]] = _paramKeyVal[1];
+    }
+   }
+   */
+}
+if(MenuID!="")
+{
+   DoMenu(MenuID)
+}
+}
+GetMenuID(); //*这两个function的顺序要注意一下，不然在Firefox里GetMenuID()不起效果
+menuFix();
+--></script>
+</html>
